@@ -13,12 +13,27 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        obsidian: "#050505",
+        violet: {
+          DEFAULT: "hsl(var(--violet))",
+          glow: "hsl(263 85% 65% / 0.3)",
+        },
+        "electric-blue": {
+          DEFAULT: "hsl(var(--electric-blue))",
+        },
+        "cyan-neon": {
+          DEFAULT: "hsl(var(--cyan-neon))",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -63,27 +78,69 @@ export default {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      backgroundImage: {
+        "gradient-violet": "linear-gradient(135deg, hsl(263 85% 65%), hsl(215 80% 60%))",
+        "gradient-cyan": "linear-gradient(135deg, hsl(186 90% 55%), hsl(215 80% 60%))",
+        "gradient-hero": "radial-gradient(ellipse 80% 50% at 50% -20%, hsl(263 85% 65% / 0.3), transparent)",
+        "gradient-card": "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+      },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(263 85% 65% / 0.3)" },
+          "50%": { boxShadow: "0 0 60px hsl(263 85% 65% / 0.6), 0 0 100px hsl(215 80% 60% / 0.3)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
+        },
+        "orbit": {
+          "0%": { transform: "rotate(0deg) translateX(120px) rotate(0deg)" },
+          "100%": { transform: "rotate(360deg) translateX(120px) rotate(-360deg)" },
+        },
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "particle-float": {
+          "0%": { transform: "translateY(100vh) translateX(0px)", opacity: "0" },
+          "10%": { opacity: "1" },
+          "90%": { opacity: "1" },
+          "100%": { transform: "translateY(-100px) translateX(50px)", opacity: "0" },
+        },
+        "gradient-shift": {
+          "0%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+          "100%": { backgroundPosition: "0% 50%" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 3s ease-in-out infinite",
+        "shimmer": "shimmer 2s linear infinite",
+        "orbit": "orbit 8s linear infinite",
+        "spin-slow": "spin-slow 20s linear infinite",
+        "particle-float": "particle-float 8s linear infinite",
+        "gradient-shift": "gradient-shift 6s ease infinite",
+      },
+      boxShadow: {
+        "glow-violet": "0 0 40px hsl(263 85% 65% / 0.3), 0 0 80px hsl(263 85% 65% / 0.1)",
+        "glow-blue": "0 0 40px hsl(215 80% 60% / 0.3)",
+        "glow-cyan": "0 0 30px hsl(186 90% 55% / 0.4)",
+        "glass": "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
       },
     },
   },
