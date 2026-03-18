@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { UserPlus, FileText, Clock, Presentation, Trophy } from "lucide-react";
 
 const steps = [
@@ -12,6 +11,7 @@ const steps = [
     bgColor: "bg-primary/10",
     borderColor: "border-primary/30",
     glowColor: "shadow-glow-violet",
+    dotColor: "bg-primary",
   },
   {
     number: "02",
@@ -22,6 +22,7 @@ const steps = [
     bgColor: "bg-accent/10",
     borderColor: "border-accent/30",
     glowColor: "shadow-glow-cyan",
+    dotColor: "bg-accent",
   },
   {
     number: "03",
@@ -32,6 +33,7 @@ const steps = [
     bgColor: "bg-secondary/10",
     borderColor: "border-secondary/30",
     glowColor: "shadow-glow-blue",
+    dotColor: "bg-secondary",
   },
   {
     number: "04",
@@ -42,6 +44,7 @@ const steps = [
     bgColor: "bg-primary/10",
     borderColor: "border-primary/30",
     glowColor: "shadow-glow-violet",
+    dotColor: "bg-primary",
   },
   {
     number: "05",
@@ -52,23 +55,20 @@ const steps = [
     bgColor: "bg-accent/10",
     borderColor: "border-accent/30",
     glowColor: "shadow-glow-cyan",
+    dotColor: "bg-accent",
   },
 ];
 
 export function EventFlowSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="event-flow" className="section-padding bg-obsidian relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-full bg-gradient-to-b from-transparent via-border to-transparent pointer-events-none" />
-
-      <div className="max-w-4xl mx-auto" ref={ref}>
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Schedule</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
@@ -77,9 +77,51 @@ export function EventFlowSection() {
           </h2>
         </motion.div>
 
-        <div className="relative">
+        {/* ─── MOBILE: clean left-side vertical timeline ─── */}
+        <div className="md:hidden relative pl-8">
+          {/* Vertical line */}
+          <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-accent/30 to-transparent" />
+
+          <div className="space-y-6">
+            {steps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="relative"
+                >
+                  {/* Timeline dot */}
+                  <div className={`absolute -left-[21px] top-4 w-3 h-3 rounded-full ${step.dotColor} ring-2 ring-obsidian`} />
+
+                  {/* Card */}
+                  <div className={`glass-card rounded-2xl border p-5 ${step.borderColor}`}>
+                    <div className="flex items-start gap-3">
+                      <div className={`w-10 h-10 rounded-xl ${step.bgColor} flex items-center justify-center flex-shrink-0`}>
+                        <Icon size={18} className={step.color} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <span className={`font-mono text-xs font-bold ${step.color}`}>{step.number}</span>
+                          <h3 className="text-sm font-bold text-foreground leading-tight">{step.title}</h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ─── DESKTOP: alternating left/right layout ─── */}
+        <div className="hidden md:block relative">
           {/* Center line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2 hidden md:block" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2" />
 
           <div className="space-y-12">
             {steps.map((step, i) => {
@@ -89,18 +131,19 @@ export function EventFlowSection() {
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: isLeft ? -60 : 60 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.7, delay: i * 0.15 }}
-                  className={`relative flex ${isLeft ? "md:justify-start" : "md:justify-end"} justify-start`}
+                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className={`relative flex ${isLeft ? "justify-start" : "justify-end"}`}
                 >
                   {/* Timeline node */}
-                  <div className={`absolute left-1/2 top-6 -translate-x-1/2 w-4 h-4 rounded-full border-2 ${step.borderColor} ${step.bgColor} hidden md:flex items-center justify-center z-10`}>
-                    <div className={`w-2 h-2 rounded-full`} style={{ background: `hsl(var(--${step.color.replace("text-", "")}))` }} />
+                  <div className={`absolute left-1/2 top-6 -translate-x-1/2 w-4 h-4 rounded-full border-2 ${step.borderColor} ${step.bgColor} flex items-center justify-center z-10`}>
+                    <div className={`w-2 h-2 rounded-full ${step.dotColor}`} />
                   </div>
 
                   {/* Card */}
-                  <div className={`w-full md:w-[calc(50%-32px)] glass-card rounded-2xl border p-7 group hover:${step.borderColor} hover:${step.glowColor} transition-all duration-500 hover:scale-[1.02]`}>
+                  <div className={`w-[calc(50%-32px)] glass-card rounded-2xl border p-7 group hover:${step.borderColor} hover:${step.glowColor} transition-all duration-500 hover:scale-[1.02]`}>
                     <div className="flex items-start gap-4">
                       <div className={`w-12 h-12 rounded-xl ${step.bgColor} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
                         <Icon size={20} className={step.color} />

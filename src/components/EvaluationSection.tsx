@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sparkles, Wrench, Target, Mic, HeartHandshake } from "lucide-react";
 
 const criteria = [
@@ -46,17 +45,15 @@ const criteria = [
 ];
 
 export function EvaluationSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="evaluation" className="section-padding bg-obsidian relative overflow-hidden">
       <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-secondary/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto" ref={ref}>
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -77,8 +74,9 @@ export function EvaluationSection() {
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 40 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.5, delay: i * 0.07 }}
                 className="glass-card rounded-2xl border p-6 text-center group hover:border-primary/30 hover:shadow-glow-violet transition-all duration-500 hover:scale-[1.04] cursor-default"
               >
                 <div className={`w-14 h-14 rounded-2xl ${c.bg} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300`}>

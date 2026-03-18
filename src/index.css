@@ -167,5 +167,19 @@
 
   .section-padding {
     @apply py-32 px-4;
+    contain: layout style paint;
+  }
+
+  /* Promote animated elements to separate GPU layers before animation starts */
+  .animate-float,
+  .animate-spin-slow,
+  .animate-particle-float {
+    will-change: transform;
+  }
+
+  /* Smoother backface for framer-motion GPU-composited elements */
+  [data-framer-component-type] {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
 }

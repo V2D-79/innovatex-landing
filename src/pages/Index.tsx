@@ -1,14 +1,16 @@
+import { lazy, Suspense } from "react";
 import { Navbar } from "@/components/Navbar";
 import { HeroSection } from "@/components/HeroSection";
-import { ObjectivesSection } from "@/components/ObjectivesSection";
-import { AboutSection } from "@/components/AboutSection";
-import { DomainsSection } from "@/components/DomainsSection";
-import { EventFlowSection } from "@/components/EventFlowSection";
-import { EvaluationSection } from "@/components/EvaluationSection";
-import { RulesSection } from "@/components/RulesSection";
-import { ContactSection } from "@/components/ContactSection";
-import { Footer } from "@/components/Footer";
 import { ScrollProgress, FloatingParticles } from "@/components/ScrollProgress";
+
+const ObjectivesSection = lazy(() => import("@/components/ObjectivesSection").then(m => ({ default: m.ObjectivesSection })));
+const AboutSection = lazy(() => import("@/components/AboutSection").then(m => ({ default: m.AboutSection })));
+const DomainsSection = lazy(() => import("@/components/DomainsSection").then(m => ({ default: m.DomainsSection })));
+const EventFlowSection = lazy(() => import("@/components/EventFlowSection").then(m => ({ default: m.EventFlowSection })));
+const EvaluationSection = lazy(() => import("@/components/EvaluationSection").then(m => ({ default: m.EvaluationSection })));
+const RulesSection = lazy(() => import("@/components/RulesSection").then(m => ({ default: m.RulesSection })));
+const ContactSection = lazy(() => import("@/components/ContactSection").then(m => ({ default: m.ContactSection })));
+const Footer = lazy(() => import("@/components/Footer").then(m => ({ default: m.Footer })));
 
 const Index = () => {
   return (
@@ -18,15 +20,19 @@ const Index = () => {
       <Navbar />
       <main>
         <HeroSection />
-        <ObjectivesSection />
-        <AboutSection />
-        <DomainsSection />
-        <EventFlowSection />
-        <EvaluationSection />
-        <RulesSection />
-        <ContactSection />
+        <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-obsidian"><div className="w-8 h-8 rounded-full border-t-2 border-primary animate-spin" /></div>}>
+          <ObjectivesSection />
+          <AboutSection />
+          <DomainsSection />
+          <EventFlowSection />
+          <EvaluationSection />
+          <RulesSection />
+          <ContactSection />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={<div className="h-64 bg-obsidian" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 };

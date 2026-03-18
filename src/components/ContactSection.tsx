@@ -1,35 +1,137 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Phone, MapPin, GraduationCap, User } from "lucide-react";
 
+// ─── Data ─────────────────────────────────────────────────────────────────────
 const students = [
   { name: "Pranav Shinde", phone: "+91 95526 28641" },
   { name: "Pranit Wadakar", phone: "+91 70206 33019" },
   { name: "Omkar Maldikar", phone: "+91 91302 42442" },
   { name: "Bhumi Chavan", phone: "+91 831 723 5683" },
+
 ];
 
+const facultyHead = {
+  name: "Dr. Lingaraj A. Hadimani",
+  role: "Faculty Head",
+};
+
 const faculty = {
-  name: "Er Shubhada Sawakhande",
+  name: "Er. Shubhada Sawakhande",
   role: "ISTE CSE Department Head",
   phone: "+91 97302 78477",
 };
 
-export function ContactSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+const venue = {
+  name: "K.I.T. College of Engineering",
+  address: "Kolhapur, Maharashtra",
+  mapsUrl: "https://maps.google.com/?q=KIT+College+of+Engineering+Kolhapur",
+  embedSrc:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3822.4545676336024!2d74.25991927493017!3d16.654121284113344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0ffb509926fa9%3A0x9af43eb75ec2804!2sKIT%27s%20College%20of%20Engineering%20Kolhapur%20(Empowered%20Autonomous)!5e0!3m2!1sen!2sin!4v1773845184567!5m2!1sen!2sin",
+};
 
+// ─── Animation helpers ─────────────────────────────────────────────────────────
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-80px" } as const,
+  transition: { duration: 0.55, delay, ease: "easeOut" as const },
+});
+
+const slideIn = (direction: "left" | "right" = "left", delay = 0) => ({
+  initial: { opacity: 0, x: direction === "left" ? -40 : 40 },
+  whileInView: { opacity: 1, x: 0 },
+  viewport: { once: true, margin: "-80px" } as const,
+  transition: { duration: 0.65, delay, ease: "easeOut" as const },
+});
+
+// ─── Sub-components ────────────────────────────────────────────────────────────
+interface SectionLabelProps {
+  icon: React.ElementType;
+  label: string;
+  colorClass?: string;
+}
+function SectionLabel({ icon: Icon, label, colorClass = "text-accent" }: SectionLabelProps) {
+  return (
+    <h3 className={`flex items-center gap-2 font-mono text-xs tracking-widest uppercase mb-4 ${colorClass}`}>
+      <Icon size={13} />
+      {label}
+    </h3>
+  );
+}
+
+interface StudentCardProps {
+  student: { name: string; phone: string };
+  delay: number;
+}
+function StudentCard({ student, delay }: StudentCardProps) {
+  return (
+    <motion.div
+      {...fadeUp(delay)}
+      className="glass-card rounded-2xl border p-5 group hover:border-primary/30 hover:shadow-glow-violet transition-all duration-300"
+    >
+      <div className="flex items-center gap-4">
+        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+          <User size={17} className="text-primary" />
+        </div>
+        <div className="min-w-0">
+          <p className="font-semibold text-foreground text-sm truncate">{student.name}</p>
+          <a
+            href={`tel:${student.phone.replace(/\s/g, "")}`}
+            className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground hover:text-accent transition-colors"
+          >
+            <Phone size={11} />
+            <span className="font-mono">{student.phone}</span>
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+interface FacultyCardProps {
+  name: string;
+  role: string;
+  phone?: string;
+  accentClass: string;
+  borderClass: string;
+  bgClass: string;
+}
+function FacultyCard({ name, role, phone, accentClass, borderClass, bgClass }: FacultyCardProps) {
+  return (
+    <div className={`glass-card rounded-2xl border ${borderClass} p-6 h-full hover:shadow-glow-violet transition-all duration-300`}>
+      <div className="flex items-center gap-4 mb-3">
+        <div className={`w-12 h-12 rounded-full ${bgClass} flex items-center justify-center shrink-0`}>
+          <GraduationCap size={20} className={accentClass} />
+        </div>
+        <div>
+          <p className="font-bold text-foreground text-sm">{name}</p>
+          <p className={`text-xs font-mono mt-0.5 ${accentClass}`}>{role}</p>
+        </div>
+      </div>
+      {phone && (
+        <a
+          href={`tel:${phone.replace(/\s/g, "")}`}
+          className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors"
+        >
+          <Phone size={12} />
+          <span className="font-mono">{phone}</span>
+        </a>
+      )}
+    </div>
+  );
+}
+
+// ─── Main Section ──────────────────────────────────────────────────────────────
+export function ContactSection() {
   return (
     <section id="contact" className="section-padding bg-obsidian relative overflow-hidden">
+      {/* Decorative glow */}
       <div className="absolute -top-20 right-0 w-80 h-80 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+      <div className="max-w-7xl mx-auto space-y-14">
+
+        {/* 1. Heading */}
+        <motion.div {...fadeUp()} className="text-center">
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Reach Out</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
             <span className="text-foreground">Contact </span>
@@ -38,108 +140,83 @@ export function ContactSection() {
           <p className="mt-4 text-muted-foreground">Have questions? We're here to help.</p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Students */}
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="lg:col-span-2"
-          >
-            <h3 className="flex items-center gap-2 font-mono text-xs text-accent tracking-widest uppercase mb-6">
-              <GraduationCap size={14} />
-              Student Coordinators
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {students.map((s, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                  className="glass-card rounded-2xl border p-5 group hover:border-primary/30 hover:shadow-glow-violet transition-all duration-400"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <User size={18} className="text-primary" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-semibold text-foreground text-sm truncate">{s.name}</p>
-                      <a
-                        href={`tel:${s.phone.replace(/\s/g, "")}`}
-                        className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground hover:text-accent transition-colors"
-                      >
-                        <Phone size={12} />
-                        <span className="font-mono">{s.phone}</span>
-                      </a>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+        {/* 2. Faculty — Head + Coordinator side by side */}
+        <motion.div {...fadeUp(0.1)}>
+          <SectionLabel icon={GraduationCap} label="Faculty" colorClass="text-primary" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <FacultyCard
+              name={facultyHead.name}
+              role={facultyHead.role}
+              accentClass="text-primary"
+              borderClass="border-primary/30"
+              bgClass="bg-primary/15"
+            />
+            <FacultyCard
+              name={faculty.name}
+              role={faculty.role}
+              phone={faculty.phone}
+              accentClass="text-accent"
+              borderClass="border-accent/20"
+              bgClass="bg-accent/10"
+            />
+          </div>
+        </motion.div>
 
-          {/* Faculty + Location */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="flex flex-col gap-5"
-          >
-            {/* Faculty */}
-            <div>
-              <h3 className="flex items-center gap-2 font-mono text-xs text-accent tracking-widest uppercase mb-4">
-                <GraduationCap size={14} />
-                Faculty Coordinator
-              </h3>
-              <div className="glass-card rounded-2xl border p-6 hover:border-accent/30 hover:shadow-glow-cyan transition-all duration-400">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center flex-shrink-0">
-                    <GraduationCap size={20} className="text-accent" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-foreground text-sm">{faculty.name}</p>
-                    <p className="text-xs text-accent font-mono mt-0.5">{faculty.role}</p>
-                  </div>
-                </div>
-                <a
-                  href={`tel:${faculty.phone.replace(/\s/g, "")}`}
-                  className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors"
-                >
-                  <Phone size={13} />
-                  <span className="font-mono">{faculty.phone}</span>
-                </a>
-              </div>
-            </div>
+        {/* 3. Student Coordinators */}
+        <motion.div {...slideIn("left", 0.1)}>
+          <SectionLabel icon={GraduationCap} label="Student Coordinators" colorClass="text-accent" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {students.map((student, i) => (
+              <StudentCard key={student.name} student={student} delay={i * 0.08} />
+            ))}
+          </div>
+        </motion.div>
 
-            {/* Location */}
-            <div>
-              <h3 className="flex items-center gap-2 font-mono text-xs text-accent tracking-widest uppercase mb-4">
-                <MapPin size={14} />
-                Venue
-              </h3>
-              <div className="glass-card rounded-2xl border p-6 hover:border-secondary/30 hover:shadow-glow-blue transition-all duration-400">
+        {/* 4. Venue + Embedded Google Map */}
+        <motion.div {...fadeUp(0.15)}>
+          <SectionLabel icon={MapPin} label="Venue" colorClass="text-accent" />
+          <div className="glass-card rounded-2xl border overflow-hidden hover:border-secondary/30 hover:shadow-glow-blue transition-all duration-300">
+            <div className="grid grid-cols-1 md:grid-cols-3">
+
+              {/* Info panel */}
+              <div className="p-6 flex flex-col justify-between gap-6 border-b md:border-b-0 md:border-r border-border">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5">
                     <MapPin size={18} className="text-secondary" />
                   </div>
                   <div>
-                    <p className="font-bold text-foreground text-sm">K.I.T. College of Engineering</p>
-                    <p className="text-xs text-muted-foreground mt-1 font-mono">Kolhapur, Maharashtra</p>
-                    <a
-                      href="https://maps.google.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-block mt-3 text-xs text-secondary hover:text-accent transition-colors font-mono"
-                    >
-                      View on Maps →
-                    </a>
+                    <p className="font-bold text-foreground text-sm">{venue.name}</p>
+                    <p className="text-xs text-muted-foreground mt-1 font-mono">{venue.address}</p>
                   </div>
                 </div>
+                <a
+                  href={venue.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-xs text-secondary hover:text-accent transition-colors font-mono"
+                >
+                  Open in Google Maps →
+                </a>
               </div>
+
+              {/* Embedded map */}
+              <div className="md:col-span-2 h-64 md:h-72">
+                <iframe
+                  title="K.I.T. College of Engineering, Kolhapur"
+                  src={venue.embedSrc}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, display: "block" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+              </div>
+
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
+
       </div>
     </section>
   );

@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { Brain, Wifi, Cpu } from "lucide-react";
 
 const domains = [
@@ -11,7 +10,6 @@ const domains = [
     borderColor: "hover:border-primary/40",
     glowColor: "hover:shadow-glow-violet",
     bg: "bg-primary/10",
-    gradient: "from-primary/20 to-transparent",
     items: ["AI Chatbots", "Image Generation", "Prediction Systems", "Recommendation Systems"],
   },
   {
@@ -22,7 +20,6 @@ const domains = [
     borderColor: "hover:border-accent/40",
     glowColor: "hover:shadow-glow-cyan",
     bg: "bg-accent/10",
-    gradient: "from-accent/20 to-transparent",
     items: ["Sensors", "Automation", "Smart Homes", "Smart Agriculture", "Smart Cities"],
   },
   {
@@ -33,23 +30,20 @@ const domains = [
     borderColor: "hover:border-secondary/40",
     glowColor: "hover:shadow-glow-blue",
     bg: "bg-secondary/10",
-    gradient: "from-secondary/20 to-transparent",
     items: ["Robotics", "Intelligent Automation", "Smart Infrastructure", "Digital Solutions"],
   },
 ];
 
 export function DomainsSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="domains" className="section-padding bg-obsidian relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-hero opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto" ref={ref}>
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -69,13 +63,15 @@ export function DomainsSection() {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 50 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: i * 0.15 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.6, delay: i * 0.1 }}
                 className={`glass-card rounded-2xl border overflow-hidden group cursor-default ${domain.borderColor} ${domain.glowColor} transition-all duration-500 hover:scale-[1.02]`}
               >
                 {/* Top gradient bar */}
-                <div className={`h-1 w-full bg-gradient-to-r ${domain.gradient.replace("to-transparent", `to-transparent via-${domain.color.replace("text-", "")}`)}`}
+                <div
+                  className="h-1 w-full"
                   style={{ background: `linear-gradient(90deg, hsl(var(--${domain.color.replace("text-", "")})), transparent)` }}
                 />
 
@@ -93,7 +89,8 @@ export function DomainsSection() {
                   <ul className="space-y-3">
                     {domain.items.map((item, j) => (
                       <li key={j} className="flex items-center gap-3 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
-                        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${domain.bg.replace("bg-", "bg-").replace("/10", "")}`}
+                        <span
+                          className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                           style={{ background: `hsl(var(--${domain.color.replace("text-", "")}))` }}
                         />
                         {item}

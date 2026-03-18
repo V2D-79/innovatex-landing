@@ -1,5 +1,4 @@
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion } from "framer-motion";
 import { ShieldCheck } from "lucide-react";
 
 const rules = [
@@ -14,17 +13,15 @@ const rules = [
 ];
 
 export function RulesSection() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-
   return (
     <section id="rules" className="section-padding bg-obsidian relative overflow-hidden">
       <div className="absolute top-1/2 left-0 w-96 h-96 rounded-full bg-primary/8 blur-3xl pointer-events-none -translate-y-1/2" />
 
-      <div className="max-w-4xl mx-auto" ref={ref}>
+      <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
@@ -37,8 +34,9 @@ export function RulesSection() {
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: 0.1 }}
           className="glass-card rounded-3xl border p-8 md:p-10"
         >
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -46,8 +44,9 @@ export function RulesSection() {
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: -20 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.3 + i * 0.07 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ duration: 0.4, delay: i * 0.04 }}
                 className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/30 transition-colors duration-300 group"
               >
                 <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-primary/20 transition-colors">

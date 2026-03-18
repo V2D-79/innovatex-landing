@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useMemo } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 
 export function ScrollProgress() {
@@ -17,13 +17,13 @@ export function ScrollProgress() {
 }
 
 export function FloatingParticles() {
-  const particles = Array.from({ length: 20 }, (_, i) => ({
+  const particles = useMemo(() => Array.from({ length: 8 }, (_, i) => ({
     id: i,
-    left: Math.random() * 100,
-    delay: Math.random() * 8,
-    duration: 8 + Math.random() * 6,
-    size: 2 + Math.random() * 3,
-  }));
+    left: 10 + (i * 11) % 80, // evenly spread, no random recalc
+    delay: i * 1.2,
+    duration: 9 + (i % 3) * 2,
+    size: 2 + (i % 3),
+  })), []);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
