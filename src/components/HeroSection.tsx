@@ -261,11 +261,11 @@ export function HeroSection() {
       {!isDesktop && (
         <div className="absolute inset-0 z-0">
           {/* Three.js canvas — full opacity layer */}
-          <div className="w-full h-full opacity-30">
+          <div className="w-full h-full opacity-100">
             <MobileThreeBackground />
           </div>
           {/* Dark overlay so text stays readable */}
-          <div className="absolute inset-0 bg-obsidian/65" />
+          <div className="absolute inset-0 bg-obsidian/40" />
         </div>
       )}
 
