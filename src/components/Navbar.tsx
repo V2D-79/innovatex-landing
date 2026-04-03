@@ -169,11 +169,12 @@ export function Navbar() {
               <div className="mx-3 mt-2 rounded-2xl glass-card border border-primary/20 overflow-hidden shadow-glow-violet">
 
                 <div className="flex items-center gap-3 px-5 py-3 border-b border-border/60 bg-primary/5">
-                  <img
-                    src="/img/kitlogo.png"
-                    alt="K.I.T. College"
-                    className="h-10 w-10 object-contain opacity-80"
-                  />
+                 <img
+                src="/img/kitlogo.png"
+                alt="K.I.T. College"
+                className="h-12 w-26 object-cover rounded-xl opacity-90 group-hover:opacity-100 transition-opacity duration-200"
+                style={{ filter: "drop-shadow(0 0 6px hsl(263 85% 65% / 0.4))" }}
+              />
                   <div>
                     <p className="text-xs font-semibold text-foreground leading-none">K.I.T. College of Engineering</p>
                     <p className="text-xs text-muted-foreground font-mono mt-0.5">ISTE CSE · Kolhapur</p>
