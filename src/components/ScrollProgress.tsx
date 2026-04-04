@@ -1,28 +1,35 @@
-import { useMemo } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState, useMemo } from "react";
 
 export function ScrollProgress() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${totalScroll / windowHeight}`;
+      // Round to 3 decimal places to avoid excessive precision thrashing
+      setScrollProgress(Number(scroll));
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <motion.div
-      style={{ scaleX }}
-      className="fixed top-0 left-0 right-0 z-[9999] h-[2px] origin-left"
-      initial={{ scaleX: 0 }}
-    >
-      <div className="h-full bg-gradient-violet w-full" />
-    </motion.div>
+    <div
+      className="fixed top-0 left-0 right-0 z-[9999] h-[2px] origin-left bg-gradient-violet transition-transform duration-100 ease-out"
+      style={{ transform: `scaleX(${scrollProgress})` }}
+    />
   );
 }
 
 export function FloatingParticles() {
   const particles = useMemo(() => Array.from({ length: 8 }, (_, i) => ({
     id: i,
-    left: 10 + (i * 11) % 80, // evenly spread, no random recalc
-    delay: i * 1.2,
-    duration: 9 + (i % 3) * 2,
+    left: 10 + (i * 11) % 80, // evenly spread
     size: 2 + (i % 3),
+    opacity: 0.1 + (i % 3) * 0.1,
   })), []);
 
   return (
@@ -30,14 +37,13 @@ export function FloatingParticles() {
       {particles.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full bg-primary/30 animate-particle-float"
+          className="absolute rounded-full bg-primary"
           style={{
             left: `${p.left}%`,
-            bottom: "-10px",
+            top: `${15 + (p.id * 10)}%`, // Randomish static positions
             width: `${p.size}px`,
             height: `${p.size}px`,
-            animationDelay: `${p.delay}s`,
-            animationDuration: `${p.duration}s`,
+            opacity: p.opacity,
           }}
         />
       ))}

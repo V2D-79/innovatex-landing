@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/FadeIn";
 import { Phone, MapPin, GraduationCap, User } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
@@ -29,21 +29,6 @@ const venue = {
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3822.4545676336024!2d74.25991927493017!3d16.654121284113344!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc0ffb509926fa9%3A0x9af43eb75ec2804!2sKIT%27s%20College%20of%20Engineering%20Kolhapur%20(Empowered%20Autonomous)!5e0!3m2!1sen!2sin!4v1773845184567!5m2!1sen!2sin",
 };
 
-// ─── Animation helpers ─────────────────────────────────────────────────────────
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.55, delay, ease: "easeOut" as const },
-});
-
-const slideIn = (direction: "left" | "right" = "left", delay = 0) => ({
-  initial: { opacity: 0, x: direction === "left" ? -40 : 40 },
-  whileInView: { opacity: 1, x: 0 },
-  viewport: { once: true, margin: "-80px" } as const,
-  transition: { duration: 0.65, delay, ease: "easeOut" as const },
-});
-
 // ─── Sub-components ────────────────────────────────────────────────────────────
 interface SectionLabelProps {
   icon: React.ElementType;
@@ -65,8 +50,9 @@ interface StudentCardProps {
 }
 function StudentCard({ student, delay }: StudentCardProps) {
   return (
-    <motion.div
-      {...fadeUp(delay)}
+    <FadeIn
+      direction="up"
+      delay={delay}
       className="glass-card rounded-2xl border p-5 group hover:border-primary/30 hover:shadow-glow-violet transition-all duration-300"
     >
       <div className="flex items-center gap-4">
@@ -84,7 +70,7 @@ function StudentCard({ student, delay }: StudentCardProps) {
           </a>
         </div>
       </div>
-    </motion.div>
+    </FadeIn>
   );
 }
 
@@ -131,17 +117,17 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto space-y-14">
 
         {/* 1. Heading */}
-        <motion.div {...fadeUp()} className="text-center">
+        <FadeIn direction="up" className="text-center">
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Reach Out</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
             <span className="text-foreground">Contact </span>
             <span className="text-gradient-violet">Us</span>
           </h2>
           <p className="mt-4 text-muted-foreground">Have questions? We're here to help.</p>
-        </motion.div>
+        </FadeIn>
 
         {/* 2. Faculty — Head + Coordinator side by side */}
-        <motion.div {...fadeUp(0.1)}>
+        <FadeIn direction="up" delay={100}>
           <SectionLabel icon={GraduationCap} label="Faculty" colorClass="text-primary" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <FacultyCard
@@ -160,20 +146,20 @@ export function ContactSection() {
               bgClass="bg-accent/10"
             />
           </div>
-        </motion.div>
+        </FadeIn>
 
         {/* 3. Student Coordinators */}
-        <motion.div {...slideIn("left", 0.1)}>
+        <FadeIn direction="left" delay={100}>
           <SectionLabel icon={GraduationCap} label="Student Coordinators" colorClass="text-accent" />
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {students.map((student, i) => (
-              <StudentCard key={student.name} student={student} delay={i * 0.08} />
+              <StudentCard key={student.name} student={student} delay={i * 80} />
             ))}
           </div>
-        </motion.div>
+        </FadeIn>
 
         {/* 4. Venue + Embedded Google Map */}
-        <motion.div {...fadeUp(0.15)}>
+        <FadeIn direction="up" delay={150}>
           <SectionLabel icon={MapPin} label="Venue" colorClass="text-accent" />
           <div className="glass-card rounded-2xl border overflow-hidden hover:border-secondary/30 hover:shadow-glow-blue transition-all duration-300">
             <div className="grid grid-cols-1 md:grid-cols-3">
@@ -215,7 +201,7 @@ export function ContactSection() {
 
             </div>
           </div>
-        </motion.div>
+        </FadeIn>
 
       </div>
     </section>

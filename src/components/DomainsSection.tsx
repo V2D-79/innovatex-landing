@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/FadeIn";
 import { Brain, Wifi, Cpu } from "lucide-react";
 
 const domains = [
@@ -40,13 +40,7 @@ export function DomainsSection() {
       <div className="absolute inset-0 bg-gradient-hero opacity-30 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <FadeIn direction="up" className="text-center mb-16">
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Explore</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
             <span className="text-foreground">Hackathon </span>
@@ -55,18 +49,16 @@ export function DomainsSection() {
           <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
             Choose your battlefield. Three cutting-edge domains await your innovation.
           </p>
-        </motion.div>
+        </FadeIn>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {domains.map((domain, i) => {
             const Icon = domain.icon;
             return (
-              <motion.div
+              <FadeIn
                 key={i}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                direction="up"
+                delay={i * 100}
                 className={`glass-card rounded-2xl border overflow-hidden group cursor-default ${domain.borderColor} ${domain.glowColor} transition-all duration-500 hover:scale-[1.02]`}
               >
                 {/* Top gradient bar */}
@@ -98,7 +90,7 @@ export function DomainsSection() {
                     ))}
                   </ul>
                 </div>
-              </motion.div>
+              </FadeIn>
             );
           })}
         </div>

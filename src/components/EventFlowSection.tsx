@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/FadeIn";
 import { UserPlus, FileText, Clock, Presentation, Trophy } from "lucide-react";
 
 const steps = [
@@ -63,19 +63,13 @@ export function EventFlowSection() {
   return (
     <section id="event-flow" className="section-padding bg-obsidian relative overflow-hidden">
       <div className="max-w-4xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <FadeIn direction="up" className="text-center mb-16">
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Schedule</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
             <span className="text-foreground">Event </span>
             <span className="text-gradient-violet">Flow</span>
           </h2>
-        </motion.div>
+        </FadeIn>
 
         {/* ─── MOBILE: clean left-side vertical timeline ─── */}
         <div className="md:hidden relative pl-8">
@@ -86,12 +80,10 @@ export function EventFlowSection() {
             {steps.map((step, i) => {
               const Icon = step.icon;
               return (
-                <motion.div
+                <FadeIn
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  direction="left"
+                  delay={i * 80}
                   className="relative"
                 >
                   {/* Timeline dot */}
@@ -112,7 +104,7 @@ export function EventFlowSection() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </FadeIn>
               );
             })}
           </div>
@@ -129,12 +121,10 @@ export function EventFlowSection() {
               const isLeft = i % 2 === 0;
 
               return (
-                <motion.div
+                <FadeIn
                   key={i}
-                  initial={{ opacity: 0, x: isLeft ? -50 : 50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  direction={isLeft ? "right" : "left"}
+                  delay={i * 100}
                   className={`relative flex ${isLeft ? "justify-start" : "justify-end"}`}
                 >
                   {/* Timeline node */}
@@ -157,7 +147,7 @@ export function EventFlowSection() {
                       </div>
                     </div>
                   </div>
-                </motion.div>
+                </FadeIn>
               );
             })}
           </div>

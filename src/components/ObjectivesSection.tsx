@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { FadeIn } from "@/components/FadeIn";
 import { Lightbulb, Code, Users, Briefcase, Zap } from "lucide-react";
 
 const objectives = [
@@ -44,16 +44,6 @@ const objectives = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
 export function ObjectivesSection() {
   return (
     <section id="objectives" className="section-padding bg-obsidian relative overflow-hidden">
@@ -61,33 +51,22 @@ export function ObjectivesSection() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
+        <FadeIn direction="up" className="text-center mb-16">
           <span className="font-mono text-xs text-accent tracking-widest uppercase">Our Mission</span>
           <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
             <span className="text-foreground">Core </span>
             <span className="text-gradient-violet">Objectives</span>
           </h2>
-        </motion.div>
+        </FadeIn>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {objectives.map((obj, i) => {
             const Icon = obj.icon;
             return (
-              <motion.div
+              <FadeIn
                 key={i}
-                variants={cardVariants}
+                direction="up"
+                delay={i * 80}
                 className={`glass-card rounded-2xl p-7 border group hover:border-primary/30 hover:${obj.glow} transition-all duration-500 hover:scale-[1.02] cursor-default ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
               >
                 <div className={`w-12 h-12 rounded-xl ${obj.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
@@ -95,10 +74,10 @@ export function ObjectivesSection() {
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{obj.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{obj.description}</p>
-              </motion.div>
+              </FadeIn>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
