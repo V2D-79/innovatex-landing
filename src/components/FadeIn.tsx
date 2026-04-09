@@ -43,10 +43,19 @@ export function FadeIn({ children, className = '', delay = 0, direction = 'up' }
   return (
     <div
       ref={domRef}
-      className={`transition-all duration-[800ms] ease-[cubic-bezier(0.25,0.1,0.25,1)] ${transformStyle} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      className={`transition-all ${transformStyle} ${className}`}
+      style={{ 
+        transitionDuration: '800ms',
+        transitionTimingFunction: 'cubic-bezier(0.25,0.1,0.25,1)',
+        transitionDelay: `${delay}ms` 
+      }}
     >
       {children}
     </div>
   );
 }
+
+
+
+
+

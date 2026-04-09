@@ -36,6 +36,33 @@
 
     --radius: 0.75rem;
 
+    /* ═══════════════════════════════════════════════════
+       Golden Ratio (φ = 1.618) Design Tokens
+    ═══════════════════════════════════════════════════ */
+
+    /* Typography scale — each step ≈ base × φⁿ */
+    --gr-text-xs: 10px;     /* 16 / φ² ≈ 6.1 → rounded up for readability */
+    --gr-text-sm: 13px;     /* 16 / φ  */
+    --gr-text-base: 16px;   /* base */
+    --gr-text-lg: 26px;     /* 16 × φ  */
+    --gr-text-xl: 42px;     /* 16 × φ² */
+    --gr-text-2xl: 68px;    /* 16 × φ³ */
+    --gr-text-3xl: 110px;   /* 16 × φ⁴ */
+
+    /* Spacing scale — 8px base × φⁿ */
+    --gr-space-xs: 5px;     /* 8 / φ   */
+    --gr-space-sm: 8px;     /* base    */
+    --gr-space-md: 13px;    /* 8 × φ   */
+    --gr-space-lg: 21px;    /* 8 × φ²  */
+    --gr-space-xl: 34px;    /* 8 × φ³  */
+    --gr-space-2xl: 55px;   /* 8 × φ⁴  */
+    --gr-space-3xl: 89px;   /* 8 × φ⁵  */
+
+    /* Border radius — φ-derived */
+    --gr-radius: 13px;
+    --gr-radius-lg: 21px;
+    --gr-radius-xl: 34px;
+
     /* Custom design tokens */
     --obsidian: 0 0% 2%;
     --violet: 263 85% 65%;
@@ -117,11 +144,21 @@
     background-clip: text;
   }
 
+  /* ── Enhanced glass card with Golden Ratio radius ── */
   .glass-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid hsl(var(--glass-border));
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--gr-radius);
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  /* ── Golden Ratio proportioned card ── */
+  .golden-card {
+    aspect-ratio: 1.618 / 1;
   }
 
   .glow-violet {
@@ -165,9 +202,33 @@
     opacity: 0.4;
   }
 
+  /* ── Section padding — Golden Ratio vertical spacing ── */
   .section-padding {
-    @apply py-32 px-4;
+    padding-top: var(--gr-space-3xl);    /* 89px */
+    padding-bottom: var(--gr-space-3xl); /* 89px */
+    padding-left: 1rem;
+    padding-right: 1rem;
     contain: layout style paint;
+  }
+
+  @media (min-width: 640px) {
+    .section-padding {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  /* ── Section divider gradient ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(263 85% 65% / 0.2) 30%,
+      hsl(215 80% 60% / 0.15) 50%,
+      hsl(186 90% 55% / 0.2) 70%,
+      transparent 100%
+    );
   }
 
   /* Promote animated elements to separate GPU layers before animation starts */

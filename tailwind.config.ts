@@ -17,6 +17,33 @@ export default {
         sans: ["Inter", "sans-serif"],
         mono: ["JetBrains Mono", "monospace"],
       },
+
+      /* ══════════════════════════════════════════════
+         Golden Ratio Typography Scale (φ = 1.618)
+      ══════════════════════════════════════════════ */
+      fontSize: {
+        "gr-xs":  ["10px", { lineHeight: "1.5" }],
+        "gr-sm":  ["13px", { lineHeight: "1.5" }],
+        "gr-base": ["16px", { lineHeight: "1.618" }],
+        "gr-lg":  ["26px", { lineHeight: "1.35" }],
+        "gr-xl":  ["42px", { lineHeight: "1.15" }],
+        "gr-2xl": ["68px", { lineHeight: "1.05" }],
+        "gr-3xl": ["110px", { lineHeight: "0.95" }],
+      },
+
+      /* ══════════════════════════════════════════════
+         Golden Ratio Spacing Scale (8px × φⁿ)
+      ══════════════════════════════════════════════ */
+      spacing: {
+        "gr-xs":  "5px",
+        "gr-sm":  "8px",
+        "gr-md":  "13px",
+        "gr-lg":  "21px",
+        "gr-xl":  "34px",
+        "gr-2xl": "55px",
+        "gr-3xl": "89px",
+      },
+
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -73,11 +100,19 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+
+      /* ══════════════════════════════════════════════
+         Golden Ratio Border Radius
+      ══════════════════════════════════════════════ */
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        gr: "13px",
+        "gr-lg": "21px",
+        "gr-xl": "34px",
       },
+
       backgroundImage: {
         "gradient-violet": "linear-gradient(135deg, hsl(263 85% 65%), hsl(215 80% 60%))",
         "gradient-cyan": "linear-gradient(135deg, hsl(186 90% 55%), hsl(215 80% 60%))",
@@ -136,11 +171,17 @@ export default {
         "particle-float": "particle-float 8s linear infinite",
         "gradient-shift": "gradient-shift 6s ease infinite",
       },
+
+      /* ══════════════════════════════════════════════
+         Enhanced Premium Box Shadows
+      ══════════════════════════════════════════════ */
       boxShadow: {
         "glow-violet": "0 0 40px hsl(263 85% 65% / 0.3), 0 0 80px hsl(263 85% 65% / 0.1)",
         "glow-blue": "0 0 40px hsl(215 80% 60% / 0.3)",
         "glow-cyan": "0 0 30px hsl(186 90% 55% / 0.4)",
         "glass": "0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05)",
+        "premium-card": "0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.04)",
+        "premium-hover": "0 8px 40px rgba(0, 0, 0, 0.4), 0 0 30px hsl(263 85% 65% / 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06)",
       },
     },
   },

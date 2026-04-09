@@ -50,16 +50,19 @@ export function ObjectivesSection() {
       {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-primary/5 blur-3xl pointer-events-none" />
 
+      {/* Section divider */}
+      <div className="absolute top-0 left-0 right-0 section-divider" />
+
       <div className="max-w-7xl mx-auto">
-        <FadeIn direction="up" className="text-center mb-16">
-          <span className="font-mono text-xs text-accent tracking-widest uppercase">Our Mission</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+        <FadeIn direction="up" className="text-center mb-gr-2xl">
+          <span className="font-mono text-gr-xs text-accent tracking-widest uppercase">Our Mission</span>
+          <h2 className="mt-gr-md text-gr-xl md:text-gr-xl font-black tracking-tight">
             <span className="text-foreground">Core </span>
             <span className="text-gradient-violet">Objectives</span>
           </h2>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gr-lg">
           {objectives.map((obj, i) => {
             const Icon = obj.icon;
             return (
@@ -67,13 +70,14 @@ export function ObjectivesSection() {
                 key={i}
                 direction="up"
                 delay={i * 80}
-                className={`glass-card rounded-2xl p-7 border group hover:border-primary/30 hover:${obj.glow} transition-all duration-500 hover:scale-[1.02] cursor-default ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
+                className={`glass-card rounded-gr-lg p-gr-xl border group hover:border-primary/30 hover:${obj.glow} hover:shadow-premium-hover transition-all duration-500 hover:scale-[1.02] cursor-default ${i === 4 ? "md:col-span-2 lg:col-span-1" : ""}`}
               >
-                <div className={`w-12 h-12 rounded-xl ${obj.bg} flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300`}>
-                  <Icon size={22} className={obj.color} />
+                {/* φ-proportioned icon container: 55×34 ≈ 1.618 */}
+                <div className={`w-[55px] h-[34px] rounded-gr ${obj.bg} flex items-center justify-center mb-gr-lg group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon size={20} className={obj.color} />
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{obj.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{obj.description}</p>
+                <h3 className="text-lg font-bold text-foreground mb-gr-sm">{obj.title}</h3>
+                <p className="text-gr-sm text-muted-foreground leading-relaxed">{obj.description}</p>
               </FadeIn>
             );
           })}

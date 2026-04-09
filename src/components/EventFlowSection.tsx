@@ -62,21 +62,24 @@ const steps = [
 export function EventFlowSection() {
   return (
     <section id="event-flow" className="section-padding bg-obsidian relative overflow-hidden">
+      {/* Section divider */}
+      <div className="absolute top-0 left-0 right-0 section-divider" />
+
       <div className="max-w-4xl mx-auto">
-        <FadeIn direction="up" className="text-center mb-16">
-          <span className="font-mono text-xs text-accent tracking-widest uppercase">Schedule</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+        <FadeIn direction="up" className="text-center mb-gr-2xl">
+          <span className="font-mono text-gr-xs text-accent tracking-widest uppercase">Schedule</span>
+          <h2 className="mt-gr-md text-gr-xl md:text-gr-xl font-black tracking-tight">
             <span className="text-foreground">Event </span>
             <span className="text-gradient-violet">Flow</span>
           </h2>
         </FadeIn>
 
         {/* ─── MOBILE: clean left-side vertical timeline ─── */}
-        <div className="md:hidden relative pl-8">
+        <div className="md:hidden relative pl-gr-xl">
           {/* Vertical line */}
           <div className="absolute left-3 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-accent/30 to-transparent" />
 
-          <div className="space-y-6">
+          <div className="space-y-gr-lg">
             {steps.map((step, i) => {
               const Icon = step.icon;
               return (
@@ -89,18 +92,18 @@ export function EventFlowSection() {
                   {/* Timeline dot */}
                   <div className={`absolute -left-[21px] top-4 w-3 h-3 rounded-full ${step.dotColor} ring-2 ring-obsidian`} />
 
-                  {/* Card */}
-                  <div className={`glass-card rounded-2xl border p-5 ${step.borderColor}`}>
-                    <div className="flex items-start gap-3">
-                      <div className={`w-10 h-10 rounded-xl ${step.bgColor} flex items-center justify-center flex-shrink-0`}>
+                  {/* Card — Golden Ratio padding */}
+                  <div className={`glass-card rounded-gr-lg border p-gr-lg ${step.borderColor}`}>
+                    <div className="flex items-start gap-gr-md">
+                      <div className={`w-[42px] h-[42px] rounded-gr ${step.bgColor} flex items-center justify-center flex-shrink-0`}>
                         <Icon size={18} className={step.color} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <span className={`font-mono text-xs font-bold ${step.color}`}>{step.number}</span>
-                          <h3 className="text-sm font-bold text-foreground leading-tight">{step.title}</h3>
+                        <div className="flex items-center gap-gr-sm mb-gr-xs">
+                          <span className={`font-mono text-gr-xs font-bold ${step.color}`}>{step.number}</span>
+                          <h3 className="text-gr-sm font-bold text-foreground leading-tight">{step.title}</h3>
                         </div>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{step.description}</p>
+                        <p className="text-gr-xs text-muted-foreground leading-relaxed">{step.description}</p>
                       </div>
                     </div>
                   </div>
@@ -115,7 +118,7 @@ export function EventFlowSection() {
           {/* Center line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2" />
 
-          <div className="space-y-12">
+          <div className="space-y-gr-2xl">
             {steps.map((step, i) => {
               const Icon = step.icon;
               const isLeft = i % 2 === 0;
@@ -128,22 +131,22 @@ export function EventFlowSection() {
                   className={`relative flex ${isLeft ? "justify-start" : "justify-end"}`}
                 >
                   {/* Timeline node */}
-                  <div className={`absolute left-1/2 top-6 -translate-x-1/2 w-4 h-4 rounded-full border-2 ${step.borderColor} ${step.bgColor} flex items-center justify-center z-10`}>
-                    <div className={`w-2 h-2 rounded-full ${step.dotColor}`} />
+                  <div className={`absolute left-1/2 top-6 -translate-x-1/2 w-[21px] h-[21px] rounded-full border-2 ${step.borderColor} ${step.bgColor} flex items-center justify-center z-10`}>
+                    <div className={`w-[8px] h-[8px] rounded-full ${step.dotColor}`} />
                   </div>
 
-                  {/* Card */}
-                  <div className={`w-[calc(50%-32px)] glass-card rounded-2xl border p-7 group hover:${step.borderColor} hover:${step.glowColor} transition-all duration-500 hover:scale-[1.02]`}>
-                    <div className="flex items-start gap-4">
-                      <div className={`w-12 h-12 rounded-xl ${step.bgColor} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
-                        <Icon size={20} className={step.color} />
+                  {/* Card — Golden Ratio: occupies 1/φ of the width */}
+                  <div className={`w-[calc(50%-34px)] glass-card rounded-gr-lg border p-gr-xl group hover:${step.borderColor} hover:${step.glowColor} hover:shadow-premium-hover transition-all duration-500 hover:scale-[1.02]`}>
+                    <div className="flex items-start gap-gr-md">
+                      <div className={`w-[55px] h-[34px] rounded-gr ${step.bgColor} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300`}>
+                        <Icon size={18} className={step.color} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-3 mb-2">
-                          <span className={`font-mono text-xs font-bold ${step.color}`}>{step.number}</span>
-                          <h3 className="text-base font-bold text-foreground">{step.title}</h3>
+                        <div className="flex items-center gap-gr-md mb-gr-sm">
+                          <span className={`font-mono text-gr-xs font-bold ${step.color}`}>{step.number}</span>
+                          <h3 className="text-gr-base font-bold text-foreground">{step.title}</h3>
                         </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{step.description}</p>
+                        <p className="text-gr-sm text-muted-foreground leading-relaxed">{step.description}</p>
                       </div>
                     </div>
                   </div>

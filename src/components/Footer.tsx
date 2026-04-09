@@ -70,16 +70,17 @@ export function Footer() {
       {/* Top glow line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+      {/* Golden Ratio padding */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-gr-2xl">
 
         {/* Main footer row */}
-        <div className="flex flex-col items-center gap-10 md:flex-row md:justify-between md:items-start">
+        <div className="flex flex-col items-center gap-gr-xl md:flex-row md:justify-between md:items-start">
 
           {/* ── Brand block ── */}
-          <div className="flex flex-col items-center md:items-start gap-3">
-            <div className="flex items-center gap-3">
-              <div className="relative w-10 h-10">
-                <div className="absolute inset-0 rounded-xl bg-gradient-violet opacity-80" />
+          <div className="flex flex-col items-center md:items-start gap-gr-md">
+            <div className="flex items-center gap-gr-md">
+              <div className="relative w-[42px] h-[42px]">
+                <div className="absolute inset-0 rounded-gr bg-gradient-violet opacity-80" />
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Zap size={18} className="text-foreground" />
                 </div>
@@ -89,21 +90,21 @@ export function Footer() {
                   <span className="text-gradient-violet">INNO</span>
                   <span className="text-foreground">VEX</span>
                 </span>
-                <p className="text-xs text-muted-foreground font-mono">Mini Hackathon 2026</p>
+                <p className="text-gr-xs text-muted-foreground font-mono">Mini Hackathon 2026</p>
               </div>
             </div>
-            <p className="text-xs text-muted-foreground font-mono text-center md:text-left max-w-[200px]">
+            <p className="text-gr-xs text-muted-foreground font-mono text-center md:text-left max-w-[200px]">
               Organized by ISTE CSE · K.I.T. Kolhapur
             </p>
           </div>
 
           {/* ── Nav links ── */}
-          <nav className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 max-w-xs md:max-w-none">
+          <nav className="flex flex-wrap items-center justify-center gap-x-gr-xs gap-y-gr-sm max-w-xs md:max-w-none">
             {footerNavLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="relative text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors font-mono px-2.5 py-1.5 group"
+                className="relative text-gr-xs sm:text-gr-sm text-muted-foreground hover:text-foreground transition-colors font-mono px-gr-sm py-gr-xs group"
               >
                 {link.label}
                 {/* Animated underline */}
@@ -113,21 +114,21 @@ export function Footer() {
           </nav>
 
           {/* ── Classic Pill Socials ── */}
-          <div className="flex flex-col items-center md:items-end gap-2.5">
-            <p className="text-[10px] font-mono tracking-widest text-muted-foreground/50 uppercase">
+          <div className="flex flex-col items-center md:items-end gap-gr-sm">
+            <p className="text-gr-xs font-mono tracking-widest text-muted-foreground/50 uppercase">
               Follow us
             </p>
 
             {/* Row 1 */}
-            <div className="flex gap-2">
+            <div className="flex gap-gr-sm">
               {socialRow1.map(({ label, href, color, iconColor, icon }) => (
                 <a
                   key={label}
                   href={href}
                   className={`
-                    flex items-center gap-2 px-3.5 py-2 rounded-full
+                    flex items-center gap-gr-sm px-gr-md py-gr-sm rounded-full
                     border border-white/[0.07] bg-white/[0.03]
-                    text-[11px] font-mono tracking-wide text-muted-foreground/60
+                    text-gr-xs font-mono tracking-wide text-muted-foreground/60
                     transition-all duration-250
                     ${color}
                   `}
@@ -141,15 +142,15 @@ export function Footer() {
             </div>
 
             {/* Row 2 */}
-            <div className="flex gap-2">
+            <div className="flex gap-gr-sm">
               {socialRow2.map(({ label, href, color, iconColor, icon }) => (
                 <a
                   key={label}
                   href={href}
                   className={`
-                    flex items-center gap-2 px-3.5 py-2 rounded-full
+                    flex items-center gap-gr-sm px-gr-md py-gr-sm rounded-full
                     border border-white/[0.07] bg-white/[0.03]
-                    text-[11px] font-mono tracking-wide text-muted-foreground/60
+                    text-gr-xs font-mono tracking-wide text-muted-foreground/60
                     transition-all duration-250
                     ${color}
                   `}
@@ -166,13 +167,13 @@ export function Footer() {
         </div>
 
         {/* ── Bottom bar ── */}
-        <div className="mt-10 pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground font-mono text-center sm:text-left">
+        <div className="mt-gr-xl pt-gr-lg border-t border-border flex flex-col sm:flex-row items-center justify-between gap-gr-md">
+          <p className="text-gr-xs text-muted-foreground font-mono text-center sm:text-left">
             © {year} INNOVEX. All rights reserved.
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-gr-sm">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="text-xs text-muted-foreground font-mono">Registrations Open</span>
+            <span className="text-gr-xs text-muted-foreground font-mono">Registrations Open</span>
           </div>
         </div>
 

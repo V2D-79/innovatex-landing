@@ -39,19 +39,22 @@ export function DomainsSection() {
     <section id="domains" className="section-padding bg-obsidian relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-hero opacity-30 pointer-events-none" />
 
+      {/* Section divider */}
+      <div className="absolute top-0 left-0 right-0 section-divider" />
+
       <div className="max-w-7xl mx-auto">
-        <FadeIn direction="up" className="text-center mb-16">
-          <span className="font-mono text-xs text-accent tracking-widest uppercase">Explore</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+        <FadeIn direction="up" className="text-center mb-gr-2xl">
+          <span className="font-mono text-gr-xs text-accent tracking-widest uppercase">Explore</span>
+          <h2 className="mt-gr-md text-gr-xl md:text-gr-xl font-black tracking-tight">
             <span className="text-foreground">Hackathon </span>
             <span className="text-gradient-violet">Domains</span>
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
+          <p className="mt-gr-md text-muted-foreground max-w-xl mx-auto">
             Choose your battlefield. Three cutting-edge domains await your innovation.
           </p>
         </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-gr-lg">
           {domains.map((domain, i) => {
             const Icon = domain.icon;
             return (
@@ -59,7 +62,7 @@ export function DomainsSection() {
                 key={i}
                 direction="up"
                 delay={i * 100}
-                className={`glass-card rounded-2xl border overflow-hidden group cursor-default ${domain.borderColor} ${domain.glowColor} transition-all duration-500 hover:scale-[1.02]`}
+                className={`glass-card rounded-gr-lg border overflow-hidden group cursor-default ${domain.borderColor} ${domain.glowColor} hover:shadow-premium-hover transition-all duration-500 hover:scale-[1.02]`}
               >
                 {/* Top gradient bar */}
                 <div
@@ -67,20 +70,20 @@ export function DomainsSection() {
                   style={{ background: `linear-gradient(90deg, hsl(var(--${domain.color.replace("text-", "")})), transparent)` }}
                 />
 
-                <div className="p-8">
-                  {/* Icon */}
-                  <div className={`w-14 h-14 rounded-2xl ${domain.bg} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                    <Icon size={26} className={domain.color} />
+                <div className="p-gr-xl">
+                  {/* φ-proportioned icon container: 55×34 ≈ 1.618 */}
+                  <div className={`w-[55px] h-[34px] rounded-gr ${domain.bg} flex items-center justify-center mb-gr-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <Icon size={22} className={domain.color} />
                   </div>
 
                   {/* Title */}
-                  <h3 className={`text-2xl font-black ${domain.color} mb-1`}>{domain.name}</h3>
-                  <p className="font-mono text-xs text-muted-foreground mb-6">{domain.subtitle}</p>
+                  <h3 className={`text-gr-lg font-black ${domain.color} mb-gr-xs`}>{domain.name}</h3>
+                  <p className="font-mono text-gr-xs text-muted-foreground mb-gr-lg">{domain.subtitle}</p>
 
                   {/* Items */}
-                  <ul className="space-y-3">
+                  <ul className="space-y-gr-md">
                     {domain.items.map((item, j) => (
-                      <li key={j} className="flex items-center gap-3 text-sm text-muted-foreground group-hover:text-foreground transition-colors">
+                      <li key={j} className="flex items-center gap-gr-md text-gr-sm text-muted-foreground group-hover:text-foreground transition-colors">
                         <span
                           className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                           style={{ background: `hsl(var(--${domain.color.replace("text-", "")}))` }}

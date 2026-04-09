@@ -37,7 +37,7 @@ interface SectionLabelProps {
 }
 function SectionLabel({ icon: Icon, label, colorClass = "text-accent" }: SectionLabelProps) {
   return (
-    <h3 className={`flex items-center gap-2 font-mono text-xs tracking-widest uppercase mb-4 ${colorClass}`}>
+    <h3 className={`flex items-center gap-gr-sm font-mono text-gr-xs tracking-widest uppercase mb-gr-md ${colorClass}`}>
       <Icon size={13} />
       {label}
     </h3>
@@ -53,17 +53,17 @@ function StudentCard({ student, delay }: StudentCardProps) {
     <FadeIn
       direction="up"
       delay={delay}
-      className="glass-card rounded-2xl border p-5 group hover:border-primary/30 hover:shadow-glow-violet transition-all duration-300"
+      className="glass-card rounded-gr-lg border p-gr-lg group hover:border-primary/30 hover:shadow-premium-hover transition-all duration-300"
     >
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+      <div className="flex items-center gap-gr-md">
+        <div className="w-[42px] h-[42px] rounded-full bg-primary/10 flex items-center justify-center shrink-0">
           <User size={17} className="text-primary" />
         </div>
         <div className="min-w-0">
-          <p className="font-semibold text-foreground text-sm truncate">{student.name}</p>
+          <p className="font-semibold text-foreground text-gr-sm truncate">{student.name}</p>
           <a
             href={`tel:${student.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-1.5 mt-1 text-xs text-muted-foreground hover:text-accent transition-colors"
+            className="flex items-center gap-gr-xs mt-gr-xs text-gr-xs text-muted-foreground hover:text-accent transition-colors"
           >
             <Phone size={11} />
             <span className="font-mono">{student.phone}</span>
@@ -84,20 +84,20 @@ interface FacultyCardProps {
 }
 function FacultyCard({ name, role, phone, accentClass, borderClass, bgClass }: FacultyCardProps) {
   return (
-    <div className={`glass-card rounded-2xl border ${borderClass} p-6 h-full hover:shadow-glow-violet transition-all duration-300`}>
-      <div className="flex items-center gap-4 mb-3">
-        <div className={`w-12 h-12 rounded-full ${bgClass} flex items-center justify-center shrink-0`}>
+    <div className={`glass-card rounded-gr-lg border ${borderClass} p-gr-lg h-full hover:shadow-premium-hover transition-all duration-300`}>
+      <div className="flex items-center gap-gr-md mb-gr-md">
+        <div className={`w-[46px] h-[46px] rounded-full ${bgClass} flex items-center justify-center shrink-0`}>
           <GraduationCap size={20} className={accentClass} />
         </div>
         <div>
-          <p className="font-bold text-foreground text-sm">{name}</p>
-          <p className={`text-xs font-mono mt-0.5 ${accentClass}`}>{role}</p>
+          <p className="font-bold text-foreground text-gr-sm">{name}</p>
+          <p className={`text-gr-xs font-mono mt-gr-xs ${accentClass}`}>{role}</p>
         </div>
       </div>
       {phone && (
         <a
           href={`tel:${phone.replace(/\s/g, "")}`}
-          className="flex items-center gap-2 text-xs text-muted-foreground hover:text-accent transition-colors"
+          className="flex items-center gap-gr-sm text-gr-xs text-muted-foreground hover:text-accent transition-colors"
         >
           <Phone size={12} />
           <span className="font-mono">{phone}</span>
@@ -114,22 +114,25 @@ export function ContactSection() {
       {/* Decorative glow */}
       <div className="absolute -top-20 right-0 w-80 h-80 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto space-y-14">
+      {/* Section divider */}
+      <div className="absolute top-0 left-0 right-0 section-divider" />
+
+      <div className="max-w-7xl mx-auto space-y-gr-2xl">
 
         {/* 1. Heading */}
         <FadeIn direction="up" className="text-center">
-          <span className="font-mono text-xs text-accent tracking-widest uppercase">Reach Out</span>
-          <h2 className="mt-3 text-4xl md:text-5xl font-black tracking-tight">
+          <span className="font-mono text-gr-xs text-accent tracking-widest uppercase">Reach Out</span>
+          <h2 className="mt-gr-md text-gr-xl md:text-gr-xl font-black tracking-tight">
             <span className="text-foreground">Contact </span>
             <span className="text-gradient-violet">Us</span>
           </h2>
-          <p className="mt-4 text-muted-foreground">Have questions? We're here to help.</p>
+          <p className="mt-gr-md text-muted-foreground">Have questions? We're here to help.</p>
         </FadeIn>
 
         {/* 2. Faculty — Head + Coordinator side by side */}
         <FadeIn direction="up" delay={100}>
           <SectionLabel icon={GraduationCap} label="Faculty" colorClass="text-primary" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-gr-lg">
             <FacultyCard
               name={facultyHead.name}
               role={facultyHead.role}
@@ -151,7 +154,7 @@ export function ContactSection() {
         {/* 3. Student Coordinators */}
         <FadeIn direction="left" delay={100}>
           <SectionLabel icon={GraduationCap} label="Student Coordinators" colorClass="text-accent" />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gr-md">
             {students.map((student, i) => (
               <StudentCard key={student.name} student={student} delay={i * 80} />
             ))}
@@ -161,32 +164,33 @@ export function ContactSection() {
         {/* 4. Venue + Embedded Google Map */}
         <FadeIn direction="up" delay={150}>
           <SectionLabel icon={MapPin} label="Venue" colorClass="text-accent" />
-          <div className="glass-card rounded-2xl border overflow-hidden hover:border-secondary/30 hover:shadow-glow-blue transition-all duration-300">
-            <div className="grid grid-cols-1 md:grid-cols-3">
+          <div className="glass-card rounded-gr-lg border overflow-hidden hover:border-secondary/30 hover:shadow-premium-hover transition-all duration-300">
+            {/* Golden Ratio grid: 1fr : 1.618fr for info:map */}
+            <div className="grid grid-cols-1 md:grid-cols-[1fr_1.618fr]">
 
               {/* Info panel */}
-              <div className="p-6 flex flex-col justify-between gap-6 border-b md:border-b-0 md:border-r border-border">
-                <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5">
+              <div className="p-gr-lg flex flex-col justify-between gap-gr-lg border-b md:border-b-0 md:border-r border-border">
+                <div className="flex items-start gap-gr-md">
+                  <div className="w-[42px] h-[42px] rounded-gr bg-secondary/10 flex items-center justify-center shrink-0 mt-0.5">
                     <MapPin size={18} className="text-secondary" />
                   </div>
                   <div>
-                    <p className="font-bold text-foreground text-sm">{venue.name}</p>
-                    <p className="text-xs text-muted-foreground mt-1 font-mono">{venue.address}</p>
+                    <p className="font-bold text-foreground text-gr-sm">{venue.name}</p>
+                    <p className="text-gr-xs text-muted-foreground mt-gr-xs font-mono">{venue.address}</p>
                   </div>
                 </div>
                 <a
                   href={venue.mapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-secondary hover:text-accent transition-colors font-mono"
+                  className="inline-flex items-center gap-1 text-gr-xs text-secondary hover:text-accent transition-colors font-mono"
                 >
                   Open in Google Maps →
                 </a>
               </div>
 
-              {/* Embedded map */}
-              <div className="md:col-span-2 h-64 md:h-72">
+              {/* Embedded map — φ-proportioned height */}
+              <div className="h-64 md:h-[300px]">
                 <iframe
                   title="K.I.T. College of Engineering, Kolhapur"
                   src={venue.embedSrc}
